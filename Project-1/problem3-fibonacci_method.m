@@ -27,22 +27,25 @@ xlabel('x',  'FontSize', 23);
 ylabel('f_{i}(x)', 'FontSize', 23);
 grid on
 
-%% Problem 2
+%% Problem 3 - Fibonacci Method
 
 l = [1e-1 5e-2 1e-2];
 minimum = zeros(size(l, 2), 3);
 n = zeros(1, size(l, 2));
+function_calculations = zeros(size(l, 2), 3);
+e = 1e-3;
 
 a = -4;
 b = 4;
+
 
 for i=1:size(l, 2)
     
     [n(i), fibonacci_array] = find_n(l(i), a, b);
     
-    [minimum(i, 1), ak1, bk1] = fibonacci_method(f1, l(i), a, b, n(i), fibonacci_array);
-    [minimum(i, 2), ak2, bk2] = fibonacci_method(f2, l(i), a, b, n(i), fibonacci_array);
-    [minimum(i, 3), ak3, bk3] = fibonacci_method(f3, l(i), a, b, n(i), fibonacci_array);
+    [minimum(i, 1), ak1, bk1, function_calculations(i, 1)] = fibonacci_method(f1, l(i), e, a, b, n(i), fibonacci_array);
+    [minimum(i, 2), ak2, bk2, function_calculations(i, 2)] = fibonacci_method(f2, l(i), e, a, b, n(i), fibonacci_array);
+    [minimum(i, 3), ak3, bk3, function_calculations(i, 3)] = fibonacci_method(f3, l(i), e, a, b, n(i), fibonacci_array);
     
     f1_intervals = figure('Name', 'f1 Intervals', 'NumberTitle', 'off');
     hold on;

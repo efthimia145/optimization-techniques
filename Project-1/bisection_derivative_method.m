@@ -1,4 +1,4 @@
-function [root, k, ak, bk] = bisection_derivative_method(f, x, l, l_limit, u_limit)
+function [root, k, ak, bk, function_calculations] = bisection_derivative_method(f, x, l, l_limit, u_limit)
     
     a = l_limit;
     b = u_limit; 
@@ -7,7 +7,7 @@ function [root, k, ak, bk] = bisection_derivative_method(f, x, l, l_limit, u_lim
     bk = b;
     k = 0; 
     x1 = (a+b)/2;
-        
+    function_calculations = 1;
     xdot = eval((subs(diff(f,x,1),x,x1)));
     
     while abs(b - a) > l && xdot ~= 0
@@ -21,6 +21,8 @@ function [root, k, ak, bk] = bisection_derivative_method(f, x, l, l_limit, u_lim
         end
         
         x1 = (a+b)/2;
+        function_calculations = function_calculations + 1;
+
         xdot = eval((subs(diff(f,x,1),x,x1)));
         
         ak = [ak; a];

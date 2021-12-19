@@ -28,7 +28,8 @@ xlabel('x', 'FontSize', 23);
 ylabel('f_{i}(x)', 'FontSize', 23);
 grid on
 
-%% Problem 1 / Question 1
+%% Problem 1 - Bisection Method
+% Question 1
 
 l = 0.01; 
 epsilon = [4e-3 5e-4 1e-4 5e-5 1e-5];
@@ -40,9 +41,9 @@ minimum = zeros(size(epsilon, 2), 3);
 
 % Find the minimums via bisection method for different values of epsilon. 
 for i=1:size(epsilon,2)
-    [minimum(i, 1), k(i, 1), ~, ~] = bisection_method(f1, l, epsilon(i), a, b);
-    [minimum(i, 2), k(i, 2), ~, ~] = bisection_method(f2, l, epsilon(i), a, b);
-    [minimum(i, 3), k(i, 3), ~, ~] = bisection_method(f3, l, epsilon(i), a, b);
+    [minimum(i, 1), k(i, 1), ~, ~, ~] = bisection_method(f1, l, epsilon(i), a, b);
+    [minimum(i, 2), k(i, 2), ~, ~, ~] = bisection_method(f2, l, epsilon(i), a, b);
+    [minimum(i, 3), k(i, 3), ~, ~, ~] = bisection_method(f3, l, epsilon(i), a, b);
 end
 
 % Plot the minimums on the figures' plot.
@@ -56,19 +57,21 @@ for iteration=1:size(epsilon, 2)
     legend('f1(x)', 'f2(x)', 'f3(x)', 'x1*', 'x2*', 'x3*');
 end
 
-%% Problem 1 / Question 2
+%% Problem 1 - Bisection Method
+% Question 2
 
 l = [1e-1 5e-2 1e-2];
 epsilon = 0.001;
 minimum = zeros(size(l, 2), 3);
 k = zeros(size(epsilon, 2), 3);
+function_calculations = zeros(size(epsilon, 2), 3);
 
 % Find the minimums via bisection method for different values of l. 
 
 for i=1:size(l, 2)
-    [minimum(i, 1), k(i, 1), ak1, bk1] = bisection_method(f1, l(i), epsilon, a, b);
-    [minimum(i, 2), k(i, 2), ak2, bk2] = bisection_method(f2, l(i), epsilon, a, b);
-    [minimum(i, 3), k(i, 3), ak3, bk3] = bisection_method(f3, l(i), epsilon, a, b);
+    [minimum(i, 1), k(i, 1), ak1, bk1, function_calculations(i, 1)] = bisection_method(f1, l(i), epsilon, a, b);
+    [minimum(i, 2), k(i, 2), ak2, bk2, function_calculations(i, 2)] = bisection_method(f2, l(i), epsilon, a, b);
+    [minimum(i, 3), k(i, 3), ak3, bk3, function_calculations(i, 3)] = bisection_method(f3, l(i), epsilon, a, b);
     
     f1_intervals = figure('Name', 'f1 Intervals', 'NumberTitle', 'off');
     hold on;

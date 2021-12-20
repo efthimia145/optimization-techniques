@@ -18,7 +18,7 @@ f = @(x1,x2) (1/2)*x1^2 + 2*x2^2;
 % Function contours
 
 figure('PaperPosition', [0.25 0.25 8 6]);
-fcontour(f, [ 2*pi]);
+fcontour(f);
 colorbar
 
 title("Function f(x)");

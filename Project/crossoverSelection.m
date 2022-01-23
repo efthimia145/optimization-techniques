@@ -8,10 +8,10 @@ function crossoveredPopulation = crossoverSelection(bestPopulation, numofCrossov
       
     if crossoverMethod == "Cut"
 
-        for i=1:2:numofCrossovers
+        for i=1:2:numofCrossovers-1
 
             y = datasample(s,1:height(bestPopulation),2,'Replace',false);
-            
+            crossoverResults = crossover(bestPopulation(y(1), :), bestPopulation(y(2), :), crossoverMethod);
             crossoveredPopulation(i:i+1, :) = crossover(bestPopulation(y(1), :), bestPopulation(y(2), :), crossoverMethod);
 
         end

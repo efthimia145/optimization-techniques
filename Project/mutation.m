@@ -1,22 +1,24 @@
-function mutatedChromosome = mutation(chromosome, c1Limits, c2Limits, sigma1Limits, sigma2Limits)
+function mutatedChromosome = mutation(gene, chromosomeSize, cLimits, sigmaLimits, alphaLimits)
 
-    N = length(chromosome);
+    N = length(gene);
     
     mutatedIndex = randi(N);
     
-    mutatedChromosome = chromosome;
-    
-    while mutatedChromosome(mutatedIndex) == chromosome(mutatedIndex)
+    mutatedChromosome = gene;
+
+    while mutatedChromosome(mutatedIndex) == gene(mutatedIndex)
         
-        switch mutatedIndex
+        switch mod(mutatedIndex,chromosomeSize)
             case 1
-                mutatedChromosome(mutatedIndex) = unifrnd(c1Limits(1), c1Limits(2));
+                mutatedChromosome(mutatedIndex) = unifrnd(cLimits(1), cLimits(2));
             case 2
-                mutatedChromosome(mutatedIndex) = unifrnd(c2Limits(1), c2Limits(2));
+                mutatedChromosome(mutatedIndex) = unifrnd(cLimits(1), cLimits(2));
             case 3
-                mutatedChromosome(mutatedIndex) = unifrnd(sigma1Limits(1), sigma1Limits(2));
+                mutatedChromosome(mutatedIndex) = unifrnd(sigmaLimits(1), sigmaLimits(2));
             case 4
-                mutatedChromosome(mutatedIndex) = unifrnd(sigma2Limits(1), sigma2Limits(2));
+                mutatedChromosome(mutatedIndex) = unifrnd(sigmaLimits(1), sigmaLimits(2));
+            case 0
+                mutatedChromosome(mutatedIndex) = unifrnd(alphaLimits(1), alphaLimits(2));
         end
         
     end

@@ -10,7 +10,7 @@ function child = crossover(parent1, parent2, crossoverMethod)
     
     if crossoverMethod == "Cut"
         
-        cutPoint = randi(N);
+        cutPoint = randi(N-1);
         
         child1 = [parent1(1:cutPoint) parent2(cutPoint+1:end)];
         child2 = [parent2(1:cutPoint)  parent1(cutPoint+1:end)];

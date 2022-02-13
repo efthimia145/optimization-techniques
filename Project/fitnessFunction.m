@@ -1,57 +1,44 @@
-function [error] = fitnessFunction(genes, numofGaussians)
+function [error] = fitnessFunction(f, gene, numofGaussians, errorType)
+% This function calculates the fitness function value for a given function
+% f and a given gene. 
+%
+% Inputs:
+% =======
+% @ f: the fitness function 
+% @ gene: the given gene 
+% @ numofGaussians: num of Gaussians used
+% @ errorType: the error calculation method. Can be "Linear" of "Mean Square"
 
-    linearError = 0;
-    meanSquareError = 1;    
-    f = @(u1,u2) sin(u1 + u2)*sin(u2^2); 
+% Outputs: 
+% ========
+% @ error: the calculated error achieved
+
+%     f = @(u1,u2) sin(u1 + u2)*sin(u2^2); 
     
     u1Limits = [-1 2];
     u2Limits = [-2 1];
     
-    chromosomeSize = length(genes)/numofGaussians;
+    chromosomeSize = length(gene)/numofGaussians;
     
     error = 0;
+    points = 20;
     
-%     for i=1:iterations
-%     
-%         u1 = unifrnd(u1Limits(1), u1Limits(2));
-%         u2 = unifrnd(u2Limits(1), u2Limits(2));
-%         
-%         fValue = f(u1,u2);
-%         fApprox = 0;
-%         
-%         for j=1:chromosomeSize:length(genes)
-%             gaussianValue = gaussianFunction(u1, u2, genes(j), genes(j+1), genes(j+2), genes(j+3));
-%             fApprox = fApprox + gaussianValue;
-%         end
-%         
-%         if linearError 
-%             
-%             error = error + abs(fValue - fApprox);
-%         
-%         elseif meanSquareError
-%             
-%             error = error + (fValue - fApprox)^2;
-%             
-%         end
-% 
-%     end
-
-    for u1=linspace(u1Limits(1),u1Limits(2),25)
-        for u2=linspace(u2Limits(1),u2Limits(2),25)
+    for u1=linspace(u1Limits(1),u1Limits(2),points)
+        for u2=linspace(u2Limits(1),u2Limits(2),points)
             
             fValue = f(u1,u2);
             fApprox = 0;
 
-            for j=1:chromosomeSize:length(genes)
-                gaussianValue = gaussianFunction(u1, u2, genes(j), genes(j+1), genes(j+2), genes(j+3), genes(j+4));
+            for j=1:chromosomeSize:length(gene)
+                gaussianValue = gaussianFunction(u1, u2, gene(j), gene(j+1), gene(j+2), gene(j+3), gene(j+4));
                 fApprox = fApprox + gaussianValue;
             end
 
-            if linearError 
+            if errorType == "Linear"
 
                 error = error + abs(fValue - fApprox);
 
-            elseif meanSquareError
+            elseif errorType == "Mean Square"
 
                 error = error + (fValue - fApprox)^2;
 
@@ -59,6 +46,6 @@ function [error] = fitnessFunction(genes, numofGaussians)
         end
     end
     
-    error = error/625;
+    error = error/(points^2);
 
 end

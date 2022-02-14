@@ -1,3 +1,5 @@
+% This function implements crossover between 2 given chromosomes. It takes
+% as input the crossover method and generates either 1 or 2 children.
 function child = crossover(parent1, parent2, crossoverMethod)
 
     if length(parent1) ~= length(parent2)

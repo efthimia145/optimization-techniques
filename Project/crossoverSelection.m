@@ -1,4 +1,17 @@
 function crossoveredPopulation = crossoverSelection(bestPopulation, numofCrossovers, crossoverMethod)
+% This function generates the appropriate chromosomes using the crossover
+% method for the next generation.
+
+% Inputs:
+% =======
+% @ bestPopulation: the chosen best chromosomes from the previous
+% generation
+% @ numofCrossovers: the number of chromosomes that need to be generated
+% @ crossoverMethod: the crossover method
+
+% Outputs: 
+% ========
+% @ crossoveredPopulation: the chromosomes generated from crossover
     
     N = height(bestPopulation);
     

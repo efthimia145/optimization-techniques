@@ -4,7 +4,7 @@ function [error] = fitnessFunction(f, gene, numofGaussians, errorType)
 %
 % Inputs:
 % =======
-% @ f: the fitness function 
+% @ f: the given function 
 % @ gene: the given gene 
 % @ numofGaussians: num of Gaussians used
 % @ errorType: the error calculation method. Can be "Linear" of "Mean Square"
@@ -12,8 +12,6 @@ function [error] = fitnessFunction(f, gene, numofGaussians, errorType)
 % Outputs: 
 % ========
 % @ error: the calculated error achieved
-
-%     f = @(u1,u2) sin(u1 + u2)*sin(u2^2); 
     
     u1Limits = [-1 2];
     u2Limits = [-2 1];

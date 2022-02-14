@@ -1,6 +1,6 @@
 % This function creates the plot for the estimated analytic function. 
 
-function [] = plotAnalyticF(resolution, finalGene, chromosomeSize, u1Limits, u2Limits, generation)
+function [fApprox] = plotAnalyticF(resolution, finalGene, chromosomeSize, u1Limits, u2Limits, generation)
 
     fApprox = zeros(resolution);
 
@@ -32,6 +32,6 @@ function [] = plotAnalyticF(resolution, finalGene, chromosomeSize, u1Limits, u2L
             ['Num of Gaussians = ' num2str(numofGaussians)]
             ['Num of generations = ' num2str(generation)] });
     grid on;
-%     saveas(gcf,["figures/fanalytic-" + num2str(maxGenerations) + ".pdf"])
+    saveas(gcf,["figures/fanalytic-" + generation + ".pdf"])
 
 end

@@ -1,14 +1,29 @@
-function mutatedChromosome = mutation(gene, chromosomeSize, cLimits, sigmaLimits, alphaLimits)
+function mutatedChromosome = mutation(initialChromosome, geneSetSize, cLimits, sigmaLimits, alphaLimits)
+% This function mutates a random initialChromosome of a given chromosome. 
 
-    N = length(gene);
+% Inputs:
+% =======
+% @ initialChromosome: the chromosome to be mutated
+% generation
+% @ geneSetSize: the size of a set off genes containing parameters for 1
+% Gaussian. 
+% @ cLimits: the limits for c parameter
+% @ sigmaLimits: the limits for sigma parameter
+% @ alphaLimits: the limits for alpha parameter
+
+% Outputs: 
+% ========
+% @ mutatedChromosome: the chromosomes generated after mutation.
+
+    N = length(initialChromosome);
     
     mutatedIndex = randi(N);
     
-    mutatedChromosome = gene;
+    mutatedChromosome = initialChromosome;
 
-    while mutatedChromosome(mutatedIndex) == gene(mutatedIndex)
+    while mutatedChromosome(mutatedIndex) == initialChromosome(mutatedIndex)
         
-        switch mod(mutatedIndex,chromosomeSize)
+        switch mod(mutatedIndex,geneSetSize)
             case 1
                 mutatedChromosome(mutatedIndex) = unifrnd(cLimits(1), cLimits(2));
             case 2

@@ -24,10 +24,7 @@ function [minError, generation] = geneticAlgorithmF(numofGaussians, maxGeneratio
 % @ bestGene: best gene of the current generation
 % @ minError: minimum error of each generation
 
-% numofGaussians = 15;
 gaussianChromosomes = 5;
-% populationSize = 30;
-% maxGenerations = 5000;
 
 genes = zeros(1, gaussianChromosomes*numofGaussians);
 
@@ -100,11 +97,8 @@ minError(generation) = population(1,end);
 % @ randomPerc:       Percentage of randomly selected genes from previous generation.
 % @ crossoverPerc:    Percentage of crossovered genes.
 
-% bestPerc = 0.3;
 randomPerc = 0.1;
 crossoverPerc = 1 - (bestPerc + randomPerc);
-
-% mutationPropability = 0.05;
 
 bestSelections = populationSize*bestPerc;
 randomSelections = populationSize*randomPerc;
@@ -122,10 +116,12 @@ while minError(generation) > errorThreshold && generation < maxGenerations
     
     population(randomEnd+1:end, 1:end-1) = crossoverSelection(bestPopulation, crossoverSelections, crossoverMethod(2));
     
-    if rand <= mutationPropability
-        mutatedGeneIndex = randi(populationSize);
-        mutatedGene = population(mutatedGeneIndex, 1:end-1);
-        population(mutatedGeneIndex,1:end-1) = mutation(mutatedGene, gaussianChromosomes, cLimits, sigmaLimits, alphaLimits);
+    for i = 1:populationSize
+        if rand <= mutationPropability
+            mutatedGeneIndex = randi(populationSize);
+            mutatedGene = population(mutatedGeneIndex, 1:end-1);
+            population(mutatedGeneIndex,1:end-1) = mutation(mutatedGene, gaussianChromosomes, cLimits, sigmaLimits, alphaLimits);
+        end
     end
         
     for i = 1:populationSize
@@ -141,18 +137,18 @@ while minError(generation) > errorThreshold && generation < maxGenerations
 
 end
 
-% Plot the error in each generation
+% Plot the error in each generation [2D]
 
-% figure();
-% hold on;
-% numGen = 1:1:generation;
-% plot(numGen,minError(numGen), 'DisplayName',['Num of Gaussians = ' num2str(numofGaussians)]);
-% xlabel('Generation');
-% ylabel('Fitness Function Value');
-% title('Fitness Function Results per Generation');
-% legend();
-% grid on;
-% saveas(gcf,["figures/FitnessFunction-" + num2str(numofGaussians) + "-" + num2str(generation) + ".pdf"])
+figure();
+hold on;
+numGen = 1:1:generation;
+plot(numGen,minError(numGen), 'DisplayName',['Num of Gaussians = ' num2str(numofGaussians)]);
+xlabel('Generation');
+ylabel('Fitness Function Value');
+title('Fitness Function Results per Generation');
+legend();
+grid on;
+saveas(gcf,["figures/FitnessFunction-Gauss" + num2str(numofGaussians) + "-" + num2str(generation) + ".pdf"])
 
 % Get the generation with the minimum error and plot the
 % calculated analytic function
@@ -160,5 +156,18 @@ end
 [finalError, bestGeneration] = min(minError);
 finalGene = bestGene(bestGeneration, :);
 
-% plotAnalyticF(resolution, finalGene, gaussianChromosomes, u1Limits, u2Limits, generation, maxGenerations);
+fApprox = plotAnalyticF(resolution, finalGene, gaussianChromosomes, u1Limits, u2Limits, generation);
+
+% Plot the difference between the approximated and the actual function in 3D
+figure();
+f =  sin(u1 + u2).*sin(u2.^2);
+z = f - fApprox;
+surf(u1,u2,z)
+xlabel('u1');
+ylabel('u2');
+zlabel('z');
+title('Given function to approach');
+grid on;
+saveas(gcf,["figures/Difference-fApprox" + num2str(generation) + ".pdf"])
+
 end

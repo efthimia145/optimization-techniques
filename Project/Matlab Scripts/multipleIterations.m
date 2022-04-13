@@ -2,6 +2,9 @@
 % AEM: 9762
 % Project
 
+% This file calls the geneticAlgorithmFunction given specific variables.
+% The variables can change based on our needs. 
+
 clear;
 close all;
 clc;
@@ -9,7 +12,7 @@ clc;
 numofGaussians = 15;
 maxGenerations = 10000;
 populationSize = 100;
-bestPerc = 0.3;
+bestPerc = 0.2;
 mutationPropability = 0.1;
 
 [temp, generation] = geneticAlgorithmF(numofGaussians, maxGenerations, populationSize, bestPerc, mutationPropability); 
@@ -124,7 +127,9 @@ mutationPropability = 0.1;
 %     saveas(gcf,["figures/FitnessFunction-" + num2str(mutationPropability) + "-" + num2str(generation) + ".pdf"])
 %     hold off;
 % end
-% % ====================================================================
+
+% Test for population size
+% ================================================
 % numofGaussians = 15;
 % maxGenerations = [5000 10000];
 % populationSize = [30 50 70 100];
